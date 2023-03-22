@@ -41,24 +41,17 @@ function App() {
 
   const handleMarkerClick = (index) => {
     const marker = markers[index];
-    console.log('marker.name-->', marker.name);
     setNewMarkerName(marker.name);
     setNewMarkerPosition(marker.position);
     setShowNewMarkerDialog(true);
   };
 
   const handleMapClick = async (event) => {
-    console.log('event-->', event);
-    console.log('markers-->', markers);
-
     try {
       const url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${event.latlng.lat}&lon=${event.latlng.lng}`;
       const response = await fetch(url);
       const data = await response.json();
-      console.log("Data -->", data);
-      console.log("Data -->", data.address.suburb);
       setNewMarkerName(data?.address?.suburb ? data?.address?.suburb : data.display_name);
-      console.log("Data -->", data.display_name);
     } catch (error) {
       console.error("Error fetching address", error);
     }
