@@ -2,9 +2,17 @@ import React, { Fragment, useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { Button, Modal } from "react-bootstrap";
+import { Amplify } from 'aws-amplify';
+
+import { withAuthenticator } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+import awsExports from './aws-exports';
+
+Amplify.configure(awsExports);
 
 
-function App() {
+function App({ signOut, user }) {
   const [markers, setMarkers] = useState([
     { name: "Taronga Zoo", position: [-33.8433, 151.2388] },
   ]);
@@ -152,4 +160,4 @@ function App() {
   )
 }
 
-export default App;
+export default withAuthenticator(App);
